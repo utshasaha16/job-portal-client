@@ -1,7 +1,22 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../../context/AuthContext/AuthContext";
 
 
 const Navbar = () => {
+
+    const { user, userSignOut } = useContext(AuthContext);
+
+    const handleSignOut = () => {
+        userSignOut()
+        .then(result => {
+            console.log(result);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
     const menu = <>
         <li><a>Item 1</a></li>
         <li><a>Item 3</a></li>
@@ -27,7 +42,7 @@ const Navbar = () => {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            {menu}
+                        {menu}
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">daisyUI</a>
@@ -38,8 +53,15 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to='/register'>Register</Link>
-                <a className="btn">Sign In</a>
+                {
+                    user ? <>
+                        <button className="btn">Sign Out</button>
+                    </> : <>
+                        <Link to='/register'>Register</Link>
+                        <Link to='/signIn'> <button className="btn">Sign In</button></Link>
+                    </>
+                }
+
             </div>
         </div>
     );
