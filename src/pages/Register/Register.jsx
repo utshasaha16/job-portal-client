@@ -1,15 +1,29 @@
 
 import Lottie from 'lottie-react';
 import registerLottieData from '../../assets/lottie/register.json'
+import { useContext } from 'react';
+import AuthContext from '../../context/AuthContext/AuthContext';
 
 const Register = () => {
+
+    const { createUser } = useContext(AuthContext)
 
     const handleRegister = e => {
         e.preventDefault()
         const email = e.target.email.value;
         const password = e.target.password.value;
-        const user = {email, password}
+        const user = { email, password }
         console.log(user);
+
+
+        // password validation
+        createUser(email, password)
+        .then(result => {
+            console.log(result.user);
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
     }
 
     return (
