@@ -32,7 +32,7 @@ const MyApplications = () => {
                     </thead>
                     <tbody>
                         {
-                            jobs.map(job => <tr>
+                            jobs.map(job => <tr key={job._id}>
                                 <th>
                                     <label>
                                         <input type="checkbox" className="checkbox" />
